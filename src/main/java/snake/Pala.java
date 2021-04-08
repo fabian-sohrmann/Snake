@@ -15,20 +15,21 @@ public class Pala {
 		this.y = y;
 	}
 	
-	/**
-	 *Method returns x coordinate 
-	 * @return
-	 */
 	public int getX() {
-		return x;
+		return x*20;
 	}
 	
-	/**
-	 * Method returns y coordinates
-	 * @return
-	 */
+
 	public int getY() {
-		return y;
+		return y*20;
+	}
+	
+	public void setX(int i) {
+		x = i;
+	}
+	
+	public void setY(int i) {
+		y = i;
 	}
 		
 }

@@ -15,24 +15,38 @@ public class Mato {
 	
 	
 	/**
-	 * Konstruktori lis‰‰ ja suunnan madon keholle
+	 * Konstruktori lis‰‰ Pala-olion ja suunnan madon keholle.
+	 * L‰htˆpaikka on satunnaisesti keskell‰ kentt‰‰ ja suunta on myˆs satunnainen.
+	 * 
 	 */
 	public Mato() {
-		Pala paa = new Pala(5,5);
+		
+		//satunnaisuus l‰htˆ‰ varten
+		Random r = new Random();
+		ArrayList<String> suunnat = new ArrayList<String>();
+		suunnat.add("ylos");
+		suunnat.add("alas");
+		suunnat.add("oikea");
+		suunnat.add("vasen");
+		
+		//lis‰t‰‰n p‰‰ ja sen paikka ja suunta
+		Pala paa = new Pala(r.nextInt(2)+4,r.nextInt(2)+4);
 		keho.add(paa);
-		headDir = "vasen";
+		headDir = suunnat.get(r.nextInt(4));
 	}
 	
 	public ArrayList<Pala> getKeho(){
 		return keho;
 	}
 	
-	
+	/**
+	 * Kasvattaa madon, lis‰‰ Pala-olion madon kehoon ja antaa sille liikesuuntaan n‰hden oikeat koordinaatit
+	 */
 	public void grow() {
 		int x = 0;
 		int y = 0;
 		
-		
+		//jos vain p‰‰
 		if(keho.size() == 1) {
 			if(headDir.equals("vasen")) {
 				x = keho.get(0).getX();
@@ -51,7 +65,7 @@ public class Mato {
 				y = keho.get(0).getY();
 			}
 		}else{
-			//haetaan 2 viimeisint‰ palaa, verrataan niiden kulkusuunta
+			//jos 2 tai enemm‰n palaa: haetaan 2 viimeisint‰ palaa, verrataan niiden kulkusuunta
 			//ja kasvatetaan h‰nt‰ menosuunnasta poisp‰in
 			Pala vikaPala = keho.get(keho.size()-1);
 			Pala vertPala = keho.get(keho.size()-2); 		
@@ -82,5 +96,72 @@ public class Mato {
 		}	
 	}
 	
+	public void setDir(String s) {
+		headDir = s;
+	}
 	
+	public String getDir() {
+		return headDir;
+	}
+	
+	public void move() {
+			//loppuosa siirtyy ensin
+			for(int i = 1; i < keho.size(); i++) {
+				keho.get(i).setX(keho.get(i-1).getX());
+				keho.get(i).setY(keho.get(i-1).getY());
+			}
+			//p‰‰ siirtyy lopuksi
+			if(headDir.equals("ylos")) {
+				keho.get(0).setY(keho.get(0).getY()-20);
+			}
+			if(headDir.equals("alas")) {
+				keho.get(0).setY(keho.get(0).getY()+20);
+			}
+			if(headDir.equals("vasen")) {
+				keho.get(0).setX(keho.get(0).getX()-20);
+			}
+			if(headDir.equals("oikea")) {
+				keho.get(0).setX(keho.get(0).getX()+20);
+			}
+	}
+	
+	public boolean legalToMove() {
+		boolean osuuReunaan = false;
+		boolean osuuHantaan = false;
+		if((keho.get(0).getX() < 200) && (keho.get(0).getX() >= 0) && 
+			(keho.get(0).getX() < 200) && (keho.get(0).getX() >= 0)) {
+			osuuReunaan = false;
+		}  
+		int menossaX = keho.get(0).getX();
+		int menossaY = keho.get(0).getY();
+		
+		if(headDir.equals("ylos")) {
+			menossaY = keho.get(0).getY()-20;
+		}
+		if(headDir.equals("alas")) {
+			menossaY = keho.get(0).getY()+20;
+		}
+		if(headDir.equals("vasen")) {
+			menossaX = keho.get(0).getX()-20;
+		}
+		if(headDir.equals("oikea")) {
+			menossaX = keho.get(0).getX()+20;
+		}
+		
+		for(int i = 0; i < keho.size(); i++) {
+			if((menossaX == keho.get(i).getX()) && (menossaY == keho.get(i).getX())) {
+				osuuHantaan = true;
+			}else {
+				osuuHantaan = false;
+			}
+		}
+		
+		if(!osuuHantaan && !osuuReunaan) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+
+
 }
