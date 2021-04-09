@@ -162,6 +162,18 @@ public class Mato {
 			return false;
 		}
 	}
+	
+	public void odota() throws InterruptedException {
+		Thread.sleep(500);	
+	} 
+	
+	public boolean osuukoRuokaan(Ruoka r) {
+		if((keho.get(0).getX() == r.getX()) && (keho.get(0).getY() == r.getY())){
+			return true;
+		}else {
+			return false;
+		}
+	}
 
 
 }
