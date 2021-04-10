@@ -9,12 +9,15 @@ import java.util.Random;
  */
 public class Ruoka {
 	private int x;
-	private int y;
+	private int y; 
 	
 	public Ruoka() {
+		int[] arrX = new int[] {0,20,40,60,80,100,120,140,160,180};
+		int[] arrY = new int[] {0,20,40,60,80,100,120,140,160,180};
+		
 		Random r = new Random();
-		this.x = r.nextInt(10);
-		this.y = r.nextInt(10);
+		this.x = arrX[r.nextInt(10)];
+		this.y = arrY[r.nextInt(10)];
 	}
 	
 	public int getX() {
