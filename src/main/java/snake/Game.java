@@ -40,59 +40,36 @@ public class Game extends Application {
 		stage.setScene(scene);
 		stage.setTitle("Snake");
 		stage.setResizable(false);
-
-		GraphicsContext gc = canvas.getGraphicsContext2D();
-		
-		// Luodaan lista, joka sis‰lt‰‰ ruutuja. Jokaisella ruudulle annetaan konstruktorissa
-		// kuvaolio, x ja y sijainti. 
-		for(int i = 0; i <  200 ; i=i+20) {
-			for(int j = 0; j < 200; j = j+20) {
-				Ruutu ruutu = new Ruutu(tausta, i, j);
-				ruudukko.add(ruutu);
-			}
-		}
 		
 		Mato mato = new Mato();
 		Ruoka ruoka = new Ruoka();
 		
+		GraphicsContext gc = canvas.getGraphicsContext2D();
 		
-		GameLoop gl = new GameLoop(gc, tausta, osa, syotava, ruudukko, mato);
+		for(int i = 0; i < 10; i++) {
+			for(int j = 0; j < 10; j++) {
+				ruudukko.add(new Ruutu(tausta, i, j));
+			}
+		}
+		
+		GameLoop gl = new GameLoop(gc, tausta, osa, syotava, ruudukko, mato, ruoka);
 		gl.start();
 		
 		
 		
-		/*
 		
 		
-		//luodaan mato
-		Mato mato = new Mato();
-		
-		//pelisilmukka
-		boolean peliJatkuu = true;
-		while(peliJatkuu) {
-			Ruoka ruoka = new Ruoka();
-			
-			mato.odota();
-			
-			//p‰ivitet‰‰n pelikentt‰
-			for(int i = 0; i < 100; i++) {
-				int kuvaX = (int) tiles.get(i).getX();
-				int kuvaY = (int) tiles.get(i).getY();
-				
-				for(int j = 0; j < mato.getKeho().size(); j++) {
-					int matoX = mato.getKeho().get(j).getX();
-					int matoY = mato.getKeho().get(j).getY();
-					if(kuvaX == matoX && kuvaY == matoY) {
-						tiles.get(i).setImage(madonKeho);
-					}
-					if(kuvaX == ruoka.getX() && kuvaY == ruoka.getY()) {
-						tiles.get(i).setImage(ruokaKuva);
-					}else {
-						tiles.get(i).setImage(tausta);
-					}
-				}
-				
+			/*EventHandler<ActionEvent> actionHandler = new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent event) {
 			}
+		};
+		
+		//startButton.setOnAction(actionHandler);*/
+		
+		/*
+
+			
+			
 			
 			//tarkistetaan onko madon seuraava liike laillinen
 			if(!(mato.legalToMove())) {
@@ -116,19 +93,11 @@ public class Game extends Application {
 			
 		}
 	
-	
+	*/
 				
 		//tapahtumak‰sittely
-		
-		EventHandler<ActionEvent> actionHandler = new EventHandler<ActionEvent>() {
-			
-			public void handle(ActionEvent event) {
-				System.out.println("Magic!");
-			}
-		};
-		
+		/*
 		EventHandler<KeyEvent> keyHandler = new EventHandler<KeyEvent>() {
-			Mato mato = new Mato();
 			
 			public void handle(KeyEvent event) {
 				if(event.getCode() == KeyCode.W) {
@@ -146,16 +115,17 @@ public class Game extends Application {
 				event.consume();
 				
 			}
-		};
+		};*/
 		
-		startButton.setOnAction(actionHandler);
-		borderPane.setOnKeyPressed(keyHandler);
-		*/
+		//startButton.setOnAction(actionHandler);
+		//borderPane.setOnKeyPressed(keyHandler);
+		
 		
 		stage.show();
 
 	
-	}	
-		
-		
+	}
+	
+
+	
 }

@@ -16,12 +16,12 @@ public class Pala {
 	}
 	
 	public int getX() {
-		return x*20;
+		return x;
 	}
 	
 
 	public int getY() {
-		return y*20;
+		return y;
 	}
 	
 	public void setX(int i) {

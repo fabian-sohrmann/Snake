@@ -14,71 +14,27 @@ public class GameLoop extends AnimationTimer{
 	Image syotava;
 	ArrayList<Ruutu> ruudukko;
 	Mato mato;
+	Ruoka ruoka;
+	
 	long lastUpdateTime = 0;
 	
 	GameLoop(GraphicsContext gc, Image tausta, Image osa, Image syotava, 
-			ArrayList<Ruutu> ruudukko, Mato mato){
+			ArrayList<Ruutu> ruudukko, Mato mato, Ruoka ruoka){
 		this.gc = gc; 
 		this.tausta = tausta;
 		this.osa = osa;
 		this.syotava = syotava;
 		this.ruudukko = ruudukko;
 		this.mato = mato;
+		this.ruoka = ruoka;
 	}
 	
-	
-	boolean noWorm = true;
 	@Override
 	public void handle(long time) {
 		
 		
-		mato.move();
-		
-		for(int i = 0; i < 100; i++) {
-			Ruutu r = ruudukko.get(i);
-			int ruutuX = r.getX();
-			int ruutuY = r.getY();
-
-			for(int j = 0; j < mato.getKeho().size(); j++) {
-				Pala pala = mato.getKeho().get(j);
-				int matoX = pala.getX();
-				int matoY = pala.getY();
-				
-				if(ruutuX == matoX && ruutuY == matoY) {
-					r.setImage(osa);
-				}
-			}
-		}
-		
-		
 		/*
-		Ruoka ruoka = null;
-		if(ruoka == null) {
-			ruoka = new Ruoka();
-		}*/
-		
-		/*//Päivitä ruutujen kuvat listassa sen mukaan, onko samoissa koordinaateissa mato tai ruoka.
-		for(int i = 0; i < 100; i++) {
-			Ruutu r = ruudukko.get(i);
-			int ruutuX = r.getX();
-			int ruutuY = r.getY();
-
-			for(int j = 0; j < mato.getKeho().size(); j++) {
-				Pala pala = mato.getKeho().get(j);
-				int matoX = pala.getX();
-				int matoY = pala.getY();
-				
-				if(ruutuX == matoX && ruutuY == matoY) {
-					r.setImage(osa);
-				}
-				if(ruutuX == ruoka.getX() && ruutuY == ruoka.getY()) {
-					r.setImage(syotava);
-				}
-			}
-			
-		}*/
-		
-		/*//tarkistetaan onko madon seuraava liike laillinen
+		//tarkistetaan onko madon seuraava liike laillinen
 		if(!(mato.legalToMove())) {
 			//TARKISTA ONKO VOITTO VAI HÄVIÖ 
 			if(mato.getKeho().size() == 100) {
@@ -86,9 +42,9 @@ public class GameLoop extends AnimationTimer{
 			}else {
 				//HÄVIÖ
 			}
-		}*/
+		}
 		
-		/*//liikutetaan mato
+		//liikutetaan mato
 		mato.move();
 		if(mato.osuukoRuokaan(ruoka)) {
 			mato.grow();
@@ -98,24 +54,49 @@ public class GameLoop extends AnimationTimer{
 		
 		//1 000 000 000 nanoseconds = 1 second
 		if((time/1000000000 - lastUpdateTime/1000000000)>=1) {
-			for(int i = 0; i < 100; i++) {
-				Image kuva = ruudukko.get(i).getKuva();
-				int x = ruudukko.get(i).getX();
-				int y = ruudukko.get(i).getY();
-				gc.drawImage(kuva, x, y);
-			}
-			//
+			piirraRuudukko(ruudukko);
+			mato.move();
+			mato.grow();
+			paivitaRuudukko(ruudukko, mato, ruoka);
 			lastUpdateTime = time;
 		}
 		
 		
-		//System.out.println(time);
-		//System.out.println(lastUpdateTime);
-		
-		
-		
-		
+	
 		
 	}
 	
+	private void piirraRuudukko(ArrayList<Ruutu> ruudukko) {
+		Ruutu ruutu;
+		for(int i = 0; i < 100; i++){
+			ruutu = ruudukko.get(i);
+			gc.drawImage(ruutu.getKuva(), 20*ruutu.getX(), 20*ruutu.getY());
+		}
+	}
+	
+	//Päivittää ruudukon kuvat sivuvaikutuksena.
+	private void paivitaRuudukko(ArrayList<Ruutu> ruudukko, Mato m, Ruoka r) {
+		Ruutu ruutu;
+		for(int i = 0; i < 100; i++){
+			ruutu = ruudukko.get(i);
+			ruutu.setImage(tausta);
+			int ruutuX = ruutu.getX();
+			int ruutuY = ruutu.getY();
+			for(int j = 0; j < m.getKeho().size(); j++) {
+				Pala pala = m.getKeho().get(j);
+				int palaX = pala.getX();
+				int palaY = pala.getY();
+				if((ruutuX == palaX) && (ruutuY == palaY)) {
+					ruutu.setImage(osa);
+				}
+			}
+			int ruokaX = r.getX();
+			int ruokaY = r.getY();
+			if((ruokaX == ruutuX) && (ruokaY == ruutuY)) {
+				ruutu.setImage(syotava);
+			} 
+				
+			
+		}
+	}
 }

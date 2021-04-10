@@ -25,12 +25,6 @@ public class Mato {
 		Random r = new Random();
 		String[] suunnat = new String[] {"ylos", "alas", "oikea","vasen"};
 		
-		/*ArrayList<String> suunnat = new ArrayList<String>();
-		suunnat.add("ylos");
-		suunnat.add("alas");
-		suunnat.add("oikea");
-		suunnat.add("vasen");*/
-		
 		//lis‰t‰‰n p‰‰ ja sen paikka ja suunta
 		int lahtoX = (r.nextInt(2))+4;
 		int lahtoY = (r.nextInt(2))+4;
@@ -127,20 +121,20 @@ public class Mato {
 				if(headDir.equals("ylos")) {
 					Pala paa = keho.get(0);
 					int paaSijainti = paa.getY();
-					paa.setY(paaSijainti-20);
+					paa.setY(paaSijainti-1);
 					System.out.println("ylos");
 				}
 				if(headDir.equals("alas")) {
 					Pala paa = keho.get(0);
 					int paaSijainti = paa.getY();
-					paa.setY(paaSijainti+20);
+					paa.setY(paaSijainti+1);
 					System.out.println("alas");
 				}
 				if(headDir.equals("vasen")) {
 					Pala paa = keho.get(0);
 					int paaSijainti = paa.getX();
 					System.out.println(paaSijainti);
-					paa.setX(paaSijainti-20);
+					paa.setX(paaSijainti-1);
 					System.out.println("vasen");
 					System.out.println("Check2");
 					System.out.println(paaSijainti);
@@ -148,7 +142,7 @@ public class Mato {
 				if(headDir.equals("oikea")) {
 					Pala paa = keho.get(0);
 					int paaSijainti = paa.getX();
-					paa.setX(paaSijainti+20);
+					paa.setX(paaSijainti+1);
 					System.out.println("oikea");
 				}
 			}
@@ -157,24 +151,24 @@ public class Mato {
 	public boolean legalToMove() {
 		boolean osuuReunaan = false;
 		boolean osuuHantaan = false;
-		if((keho.get(0).getX() < 200) && (keho.get(0).getX() >= 0) && 
-			(keho.get(0).getX() < 200) && (keho.get(0).getX() >= 0)) {
+		if((keho.get(0).getX() < 10) && (keho.get(0).getX() >= 0) && 
+			(keho.get(0).getX() < 10) && (keho.get(0).getX() >= 0)) {
 			osuuReunaan = false;
 		}  
 		int menossaX = keho.get(0).getX();
 		int menossaY = keho.get(0).getY();
 		
 		if(headDir.equals("ylos")) {
-			menossaY = keho.get(0).getY()-20;
+			menossaY = keho.get(0).getY()-1;
 		}
 		if(headDir.equals("alas")) {
-			menossaY = keho.get(0).getY()+20;
+			menossaY = keho.get(0).getY()+1;
 		}
 		if(headDir.equals("vasen")) {
-			menossaX = keho.get(0).getX()-20;
+			menossaX = keho.get(0).getX()-1;
 		}
 		if(headDir.equals("oikea")) {
-			menossaX = keho.get(0).getX()+20;
+			menossaX = keho.get(0).getX()+1;
 		}
 		
 		for(int i = 0; i < keho.size(); i++) {

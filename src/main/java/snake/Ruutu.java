@@ -8,7 +8,7 @@ public class Ruutu {
 	private int x;
 	private int y;
 	
-	public Ruutu(Image kuva,int x, int y){
+	public Ruutu(Image kuva, int x, int y){
 		this.kuva = kuva;
 		this.x = x;
 		this.y = y;
