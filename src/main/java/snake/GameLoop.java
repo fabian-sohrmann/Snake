@@ -51,13 +51,32 @@ public class GameLoop extends AnimationTimer{
 			ruoka = null;
 		}*/
 		
+		paivitaRuudukko(ruudukko, mato, ruoka);
 		
 		//1 000 000 000 nanoseconds = 1 second
 		if((time/1000000000 - lastUpdateTime/1000000000)>=1) {
-			paivitaRuudukko(ruudukko, mato, ruoka);
+			
+			
 			piirraRuudukko(ruudukko);
 			mato.move();
-			mato.grow();
+			//tarkistetaan onko madon seuraava liike laillinen
+			if(mato.osuukoReunaan() || mato.osuukoHantaan()){
+				System.out.println("Peli ohi!");
+				if(mato.getKeho().size()==100) {
+					System.out.println("Voitit!");
+				}else {
+					System.out.println("Hävisit!");
+				}
+			}else {
+				System.out.println("Pelijatkuu");
+				if(mato.osuukoRuokaan(ruoka)) {
+					mato.grow();
+					ruoka = new Ruoka();
+				}
+			}
+			
+			
+			
 			
 			lastUpdateTime = time;
 		}

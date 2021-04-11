@@ -48,20 +48,20 @@ public class Mato {
 		//jos vain p‰‰
 		if(keho.size() == 1) {
 			if(headDir.equals("vasen")) {
-				x = keho.get(0).getX();
-				y = keho.get(0).getY() + 1;
+				x = keho.get(0).getX() +1;
+				y = keho.get(0).getY();
 			}
 			if(headDir.equals("oikea")) {
-				x = keho.get(0).getX();
-				y = keho.get(0).getY() - 1;
+				x = keho.get(0).getX()-1;
+				y = keho.get(0).getY();
 			}
 			if(headDir.equals("ylos")) {
-				x = keho.get(0).getX() + 1;
-				y = keho.get(0).getY();
+				x = keho.get(0).getX();
+				y = keho.get(0).getY()+1;
 			}
 			if(headDir.equals("alas")) {
-				x = keho.get(0).getX() - 1;
-				y = keho.get(0).getY();
+				x = keho.get(0).getX();
+				y = keho.get(0).getY()-1;
 			}
 		}else{
 			//jos 2 tai enemm‰n palaa: haetaan 2 viimeisint‰ palaa, verrataan niiden kulkusuunta
@@ -90,9 +90,14 @@ public class Mato {
 				y = y1 + 1;
 			}
 			
-		//lis‰t‰‰n oikeat koordinaatit uudelle h‰nn‰lle ja lis‰t‰‰n uusi h‰nt‰ listaan
-		keho.add(keho.size(), new Pala(x, y));
+		
+			
+			
 		}	
+		
+		//lis‰t‰‰n oikeat koordinaatit uudelle h‰nn‰lle ja lis‰t‰‰n uusi h‰nt‰ listaan
+		//keho.add(keho.size(), new Pala(x, y));
+		keho.add(keho.size(), new Pala(x, y));
 	}
 	
 	public void setDir(String s) {
@@ -104,87 +109,97 @@ public class Mato {
 	}
 	
 	public void move() {
-			System.out.println("Check1");
+			
 			if(keho.size() > 1) {
-			//loppuosa siirtyy ensin
-			for(int i = 1; i < keho.size(); i++) {
-				Pala p2 = keho.get(i);
-				Pala p1 = keho.get(i-1);
-				p2.setX(p1.getX());
-				p2.setY(p1.getY());
-			}
-			System.out.println("Check2");
-			}
-			//p‰‰ siirtyy lopuksi
-			if(keho.size()==1) {
-				System.out.println("Check3");
+				//loppuosa siirtyy ensin ONGELMA TƒSSƒ JOSSAIN!!  
+				for(int i = keho.size()-1; i >  0; i--) {
+					Pala back = keho.get(i);    
+					Pala front = keho.get(i-1);     
+					back.setX(front.getX());
+					back.setY(front.getY());
+				}
+				
+				//p‰‰ siirtyy lopuksi
 				if(headDir.equals("ylos")) {
 					Pala paa = keho.get(0);
-					int paaSijainti = paa.getY();
-					paa.setY(paaSijainti-1);
-					System.out.println("ylos");
+					int paaSijainti = paa.getX();
+					paa.setX(paaSijainti-1);
 				}
 				if(headDir.equals("alas")) {
 					Pala paa = keho.get(0);
-					int paaSijainti = paa.getY();
-					paa.setY(paaSijainti+1);
-					System.out.println("alas");
+					int paaSijainti = paa.getX();
+					paa.setX(paaSijainti+1);
 				}
 				if(headDir.equals("vasen")) {
 					Pala paa = keho.get(0);
-					int paaSijainti = paa.getX();
-					System.out.println(paaSijainti);
-					paa.setX(paaSijainti-1);
-					System.out.println("vasen");
-					System.out.println("Check2");
-					System.out.println(paaSijainti);
+					int paaSijainti = paa.getY();
+					paa.setY(paaSijainti-1);
 				}
 				if(headDir.equals("oikea")) {
 					Pala paa = keho.get(0);
+					int paaSijainti = paa.getY();
+					paa.setY(paaSijainti+1);
+				}
+			}else{
+				// vain p‰‰ siirtyy TESTATTU JA OK!
+				if(headDir.equals("ylos")) {
+					Pala paa = keho.get(0);
+					int paaSijainti = paa.getX();
+					paa.setX(paaSijainti-1);
+				}
+				if(headDir.equals("alas")) {
+					Pala paa = keho.get(0);
 					int paaSijainti = paa.getX();
 					paa.setX(paaSijainti+1);
-					System.out.println("oikea");
+				}
+				if(headDir.equals("vasen")) {
+					Pala paa = keho.get(0);
+					int paaSijainti = paa.getY();
+					paa.setY(paaSijainti-1);
+				}
+				if(headDir.equals("oikea")) {
+					Pala paa = keho.get(0);
+					int paaSijainti = paa.getY();
+					paa.setY(paaSijainti+1);
 				}
 			}
 	}
 	
-	public boolean legalToMove() {
-		boolean osuuReunaan = false;
-		boolean osuuHantaan = false;
-		if((keho.get(0).getX() < 10) && (keho.get(0).getX() >= 0) && 
-			(keho.get(0).getX() < 10) && (keho.get(0).getX() >= 0)) {
+	public boolean osuukoReunaan() {
+		
+		//simuloidaan seuraava siirto ja tarkistetaan sen laillisuus
+		boolean osuuReunaan = true;
+		
+		Pala paa = keho.get(0);
+		int paaX = paa.getX();
+		int paaY = paa.getY();
+		
+		if((paaX < 10) && (paaX >= 0) && (paaY < 10) && (paaY >= 0)) {
 			osuuReunaan = false;
 		}  
-		int menossaX = keho.get(0).getX();
-		int menossaY = keho.get(0).getY();
 		
-		if(headDir.equals("ylos")) {
-			menossaY = keho.get(0).getY()-1;
-		}
-		if(headDir.equals("alas")) {
-			menossaY = keho.get(0).getY()+1;
-		}
-		if(headDir.equals("vasen")) {
-			menossaX = keho.get(0).getX()-1;
-		}
-		if(headDir.equals("oikea")) {
-			menossaX = keho.get(0).getX()+1;
-		}
+		return osuuReunaan;
+	}
+	
+	public boolean osuukoHantaan() {
 		
-		for(int i = 0; i < keho.size(); i++) {
-			if((menossaX == keho.get(i).getX()) && (menossaY == keho.get(i).getX())) {
+		//simuloidaan seuraava siirto ja tarkistetaan sen laillisuus
+		boolean osuuHantaan = false;
+		
+		Pala paa = keho.get(0);
+		int paaX = paa.getX();
+		int paaY = paa.getY();
+		
+		for(int i = 1; i < keho.size(); i++) {
+			if((paaX == keho.get(i).getX()) && (paaY == keho.get(i).getY())) {
 				osuuHantaan = true;
-			}else {
-				osuuHantaan = false;
+				break;
 			}
 		}
 		
-		if(!osuuHantaan && !osuuReunaan) {
-			return true;
-		}else {
-			return false;
-		}
+		return osuuHantaan;
 	}
+	
 	
 	public boolean osuukoRuokaan(Ruoka r) {
 		if((keho.get(0).getX() == r.getX()) && (keho.get(0).getY() == r.getY())){

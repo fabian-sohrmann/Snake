@@ -13,10 +13,10 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 public class Game extends Application {
@@ -32,13 +32,18 @@ public class Game extends Application {
 		BorderPane borderPane = new BorderPane();
 		Canvas canvas = new Canvas(200, 200);
 		Button startButton = new Button("Start");
+		Button stopButton = new Button("End Game");
 		Label title = new Label("Snake");
 		Image tausta = new Image(new FileInputStream("src/main/resources/snake/background_fill.png"));
 		Image osa = new Image(new FileInputStream("src/main/resources/snake/snake_fill.png"));
 		Image syotava = new Image(new FileInputStream("src/main/resources/snake/food_fill.png"));
 		
+		HBox hbox = new HBox();
+		hbox.getChildren().add(startButton);
+		hbox.getChildren().add(stopButton);
+		
 		borderPane.setTop(title);
-		borderPane.setBottom(startButton);
+		borderPane.setBottom(hbox);
 		borderPane.setCenter(canvas);
 		
 		Scene scene = new Scene(borderPane);
@@ -58,38 +63,16 @@ public class Game extends Application {
 		}
 		
 		gl = new GameLoop(gc, tausta, osa, syotava, ruudukko, mato, ruoka);
-		
-		/*
-
-			
-			
-			
-			//tarkistetaan onko madon seuraava liike laillinen
-			if(!(mato.legalToMove())) {
-				peliJatkuu = false;
-				//TARKISTA ONKO VOITTO VAI HÄVIÖ 
-				if(mato.getKeho().size() == 100) {
-					//VOITTO
-				}else {
-					//HÄVIÖ
-				}
-			}
-			
-			
-			//liikutetaan mato
-			mato.move();
-			if(mato.osuukoRuokaan(ruoka)) {
-				mato.grow();
-				ruoka = null;
-			}
-			
-			
-		}
 	
-	*/
 				
-		//tapahtumakäsittely
-		EventHandler<ActionEvent> actionHandler = new EventHandler<ActionEvent>() {
+		/*//tapahtumakäsittely
+		EventHandler<ActionEvent> stopHandler = new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent event) {
+				gl.stop();
+			}
+		};*/
+		
+		EventHandler<ActionEvent> startHandler = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent event) {
 				gl.start();
 			}
@@ -100,15 +83,19 @@ public class Game extends Application {
 			public void handle(KeyEvent event) {
 				if(event.getCode() == KeyCode.W) {
 					mato.setDir("ylos");
+					System.out.println(mato.getDir());
 				}
 				if(event.getCode() == KeyCode.S) {
 					mato.setDir("alas");
+					System.out.println(mato.getDir());
 				}
 				if(event.getCode() == KeyCode.A) {
 					mato.setDir("vasen");
+					System.out.println(mato.getDir());
 				}
 				if(event.getCode() == KeyCode.D) {
 					mato.setDir("oikea");
+					System.out.println(mato.getDir());
 				}
 				event.consume();
 				
@@ -116,7 +103,8 @@ public class Game extends Application {
 		};
 		
 		borderPane.setOnKeyPressed(keyHandler);
-		startButton.setOnAction(actionHandler);
+		startButton.setOnAction(startHandler);
+		//stopButton.setOnAction(stopHandler);
 		
 		stage.show();
 
