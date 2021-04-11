@@ -83,11 +83,11 @@ public class Mato {
 			}
 			if(y1<y2 ) {
 				x = x1;
-				y = y1 + 1;
+				y = y1 - 1;
 			}
 			if(y1>y2) {
 				x = x1;
-				y = y1-1;
+				y = y1 + 1;
 			}
 			
 		//lis‰t‰‰n oikeat koordinaatit uudelle h‰nn‰lle ja lis‰t‰‰n uusi h‰nt‰ listaan

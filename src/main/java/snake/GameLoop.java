@@ -54,10 +54,11 @@ public class GameLoop extends AnimationTimer{
 		
 		//1 000 000 000 nanoseconds = 1 second
 		if((time/1000000000 - lastUpdateTime/1000000000)>=1) {
+			paivitaRuudukko(ruudukko, mato, ruoka);
 			piirraRuudukko(ruudukko);
 			mato.move();
 			mato.grow();
-			paivitaRuudukko(ruudukko, mato, ruoka);
+			
 			lastUpdateTime = time;
 		}
 		
@@ -99,4 +100,5 @@ public class GameLoop extends AnimationTimer{
 			
 		}
 	}
+	
 }

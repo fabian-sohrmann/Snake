@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -12,13 +14,16 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 public class Game extends Application {
 	
-	ArrayList<ImageView> tiles = new ArrayList<ImageView>();
-
+	GameLoop gl;
+	Mato mato = new Mato();
+	
 	@Override
     public void start(Stage stage) throws IOException, InterruptedException {
 		
@@ -41,7 +46,7 @@ public class Game extends Application {
 		stage.setTitle("Snake");
 		stage.setResizable(false);
 		
-		Mato mato = new Mato();
+		
 		Ruoka ruoka = new Ruoka();
 		
 		GraphicsContext gc = canvas.getGraphicsContext2D();
@@ -52,19 +57,7 @@ public class Game extends Application {
 			}
 		}
 		
-		GameLoop gl = new GameLoop(gc, tausta, osa, syotava, ruudukko, mato, ruoka);
-		gl.start();
-		
-		
-		
-		
-		
-			/*EventHandler<ActionEvent> actionHandler = new EventHandler<ActionEvent>() {
-			public void handle(ActionEvent event) {
-			}
-		};
-		
-		//startButton.setOnAction(actionHandler);*/
+		gl = new GameLoop(gc, tausta, osa, syotava, ruudukko, mato, ruoka);
 		
 		/*
 
@@ -96,8 +89,13 @@ public class Game extends Application {
 	*/
 				
 		//tapahtumakäsittely
-		/*
-		EventHandler<KeyEvent> keyHandler = new EventHandler<KeyEvent>() {
+		EventHandler<ActionEvent> actionHandler = new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent event) {
+				gl.start();
+			}
+		};
+		
+		EventHandler<KeyEvent> keyHandler = new EventHandler<KeyEvent>(){
 			
 			public void handle(KeyEvent event) {
 				if(event.getCode() == KeyCode.W) {
@@ -115,11 +113,10 @@ public class Game extends Application {
 				event.consume();
 				
 			}
-		};*/
+		};
 		
-		//startButton.setOnAction(actionHandler);
-		//borderPane.setOnKeyPressed(keyHandler);
-		
+		borderPane.setOnKeyPressed(keyHandler);
+		startButton.setOnAction(actionHandler);
 		
 		stage.show();
 
