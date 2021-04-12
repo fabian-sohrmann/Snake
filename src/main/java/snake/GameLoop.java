@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 
 public class GameLoop extends AnimationTimer{
@@ -15,11 +16,13 @@ public class GameLoop extends AnimationTimer{
 	ArrayList<Ruutu> ruudukko;
 	Mato mato;
 	Ruoka ruoka;
+	Image background;
+	Label title;
 	
 	long lastUpdateTime = 0;
 	
-	GameLoop(GraphicsContext gc, Image tausta, Image osa, Image syotava, 
-			ArrayList<Ruutu> ruudukko, Mato mato, Ruoka ruoka){
+	GameLoop(GraphicsContext gc, Image tausta, Image osa, Image syotava, Image background, 
+			ArrayList<Ruutu> ruudukko, Mato mato, Ruoka ruoka, Label title){
 		this.gc = gc; 
 		this.tausta = tausta;
 		this.osa = osa;
@@ -27,34 +30,17 @@ public class GameLoop extends AnimationTimer{
 		this.ruudukko = ruudukko;
 		this.mato = mato;
 		this.ruoka = ruoka;
+		this.background = background;
+		this.title = title;
 	}
 	
 	@Override
 	public void handle(long time) {
 		
-		
-		/*
-		//tarkistetaan onko madon seuraava liike laillinen
-		if(!(mato.legalToMove())) {
-			//TARKISTA ONKO VOITTO VAI HƒVI÷ 
-			if(mato.getKeho().size() == 100) {
-				//VOITTO
-			}else {
-				//HƒVI÷
-			}
-		}
-		
-		//liikutetaan mato
-		mato.move();
-		if(mato.osuukoRuokaan(ruoka)) {
-			mato.grow();
-			ruoka = null;
-		}*/
-		
 		paivitaRuudukko(ruudukko, mato, ruoka);
 		
 		//1 000 000 000 nanoseconds = 1 second
-		if((time/1000000000 - lastUpdateTime/1000000000)>=1) {
+		if((time/1000000000 - lastUpdateTime/1000000000)>=0.5) {
 			
 			
 			piirraRuudukko(ruudukko);
@@ -64,8 +50,13 @@ public class GameLoop extends AnimationTimer{
 				System.out.println("Peli ohi!");
 				if(mato.getKeho().size()==100) {
 					System.out.println("Voitit!");
+					this.stop();
+					title.setText("You won the game! Congratulations! \n\n");
 				}else {
 					System.out.println("H‰visit!");
+					this.stop();
+					title.setText("You lost the game!\n\n");
+					
 				}
 			}else {
 				System.out.println("Pelijatkuu");
@@ -75,14 +66,9 @@ public class GameLoop extends AnimationTimer{
 				}
 			}
 			
-			
-			
-			
 			lastUpdateTime = time;
 		}
 		
-		
-	
 		
 	}
 	
@@ -94,7 +80,12 @@ public class GameLoop extends AnimationTimer{
 		}
 	}
 	
-	//P‰ivitt‰‰ ruudukon kuvat sivuvaikutuksena.
+	/**
+	 * @param ruudukko
+	 * @param m
+	 * @param r
+	 * P‰ivitt‰‰ ruudukon kuvat sivuvaikutuksena.
+	 */
 	private void paivitaRuudukko(ArrayList<Ruutu> ruudukko, Mato m, Ruoka r) {
 		Ruutu ruutu;
 		for(int i = 0; i < 100; i++){
@@ -114,10 +105,9 @@ public class GameLoop extends AnimationTimer{
 			int ruokaY = r.getY();
 			if((ruokaX == ruutuX) && (ruokaY == ruutuY)) {
 				ruutu.setImage(syotava);
-			} 
-				
-			
+			} 		
 		}
 	}
+
 	
 }

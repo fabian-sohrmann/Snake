@@ -27,20 +27,20 @@ public class Game extends Application {
 	@Override
     public void start(Stage stage) throws IOException, InterruptedException {
 		
-		//luodaan tarpeelliset elementit
+		//Luodaan tarpeelliset elementit.
 		ArrayList<Ruutu> ruudukko = new ArrayList<Ruutu>();
 		BorderPane borderPane = new BorderPane();
 		Canvas canvas = new Canvas(200, 200);
 		Button startButton = new Button("Start");
-		Button stopButton = new Button("End Game");
-		Label title = new Label("Snake");
 		Image tausta = new Image(new FileInputStream("src/main/resources/snake/background_fill.png"));
 		Image osa = new Image(new FileInputStream("src/main/resources/snake/snake_fill.png"));
 		Image syotava = new Image(new FileInputStream("src/main/resources/snake/food_fill.png"));
+		Label title = new Label("Welcome to the Game! \nUse W,A,S,D keys to move! \nClick Start to begin!");
+		Image background = new Image(new FileInputStream("src/main/resources/snake/welcome.png"));
 		
 		HBox hbox = new HBox();
 		hbox.getChildren().add(startButton);
-		hbox.getChildren().add(stopButton);
+		
 		
 		borderPane.setTop(title);
 		borderPane.setBottom(hbox);
@@ -62,16 +62,11 @@ public class Game extends Application {
 			}
 		}
 		
-		gl = new GameLoop(gc, tausta, osa, syotava, ruudukko, mato, ruoka);
-	
-				
-		/*//tapahtumakäsittely
-		EventHandler<ActionEvent> stopHandler = new EventHandler<ActionEvent>() {
-			public void handle(ActionEvent event) {
-				gl.stop();
-			}
-		};*/
+		gc.drawImage(background, 0, 0);
 		
+		gl = new GameLoop(gc, tausta, osa, syotava, background, ruudukko, mato, ruoka, title);
+	
+		//Luodaan tapahtumankäsittelijöitä pelisilmukan aloittamista ja madon ohjaamista varten.
 		EventHandler<ActionEvent> startHandler = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent event) {
 				gl.start();
@@ -81,19 +76,19 @@ public class Game extends Application {
 		EventHandler<KeyEvent> keyHandler = new EventHandler<KeyEvent>(){
 			
 			public void handle(KeyEvent event) {
-				if(event.getCode() == KeyCode.W) {
+				if(event.getCode() == KeyCode.W && !(mato.getDir().equals("alas"))) {
 					mato.setDir("ylos");
 					System.out.println(mato.getDir());
 				}
-				if(event.getCode() == KeyCode.S) {
+				if(event.getCode() == KeyCode.S && !(mato.getDir().equals("ylos"))) {
 					mato.setDir("alas");
 					System.out.println(mato.getDir());
 				}
-				if(event.getCode() == KeyCode.A) {
+				if(event.getCode() == KeyCode.A && !(mato.getDir().equals("oikea"))) {
 					mato.setDir("vasen");
 					System.out.println(mato.getDir());
 				}
-				if(event.getCode() == KeyCode.D) {
+				if(event.getCode() == KeyCode.D && !(mato.getDir().equals("vasen"))) {
 					mato.setDir("oikea");
 					System.out.println(mato.getDir());
 				}
@@ -104,11 +99,9 @@ public class Game extends Application {
 		
 		borderPane.setOnKeyPressed(keyHandler);
 		startButton.setOnAction(startHandler);
-		//stopButton.setOnAction(stopHandler);
 		
 		stage.show();
-
-	
+		
 	}
 	
 

@@ -111,7 +111,7 @@ public class Mato {
 	public void move() {
 			
 			if(keho.size() > 1) {
-				//loppuosa siirtyy ensin ONGELMA TÄSSÄ JOSSAIN!!  
+				//loppuosa siirtyy ensin 
 				for(int i = keho.size()-1; i >  0; i--) {
 					Pala back = keho.get(i);    
 					Pala front = keho.get(i-1);     
