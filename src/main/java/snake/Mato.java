@@ -122,46 +122,63 @@ public class Mato {
 				//p‰‰ siirtyy lopuksi
 				if(headDir.equals("ylos")) {
 					Pala paa = keho.get(0);
-					int paaSijainti = paa.getX();
-					paa.setX(paaSijainti-1);
+					int nykSijaintiX = paa.getX();
+					int nykSijaintiY = paa.getY();
+					paa.setX(nykSijaintiX);
+					paa.setY(nykSijaintiY-1);
 				}
 				if(headDir.equals("alas")) {
 					Pala paa = keho.get(0);
-					int paaSijainti = paa.getX();
-					paa.setX(paaSijainti+1);
+					int nykSijaintiX = paa.getX();
+					int nykSijaintiY = paa.getY();
+					paa.setX(nykSijaintiX);
+					paa.setY(nykSijaintiY+1);
 				}
 				if(headDir.equals("vasen")) {
 					Pala paa = keho.get(0);
-					int paaSijainti = paa.getY();
-					paa.setY(paaSijainti-1);
+					int nykSijaintiX = paa.getX();
+					int nykSijaintiY = paa.getY();
+					paa.setX(nykSijaintiX-1);
+					paa.setY(nykSijaintiY);
 				}
 				if(headDir.equals("oikea")) {
 					Pala paa = keho.get(0);
-					int paaSijainti = paa.getY();
-					paa.setY(paaSijainti+1);
+					int nykSijaintiX = paa.getX();
+					int nykSijaintiY = paa.getY();
+					paa.setX(nykSijaintiX+1);
+					paa.setY(nykSijaintiY);
 				}
 			}else{
 				// vain p‰‰ siirtyy TESTATTU JA OK!
 				if(headDir.equals("ylos")) {
 					Pala paa = keho.get(0);
-					int paaSijainti = paa.getX();
-					paa.setX(paaSijainti-1);
+					int nykSijaintiX = paa.getX();
+					int nykSijaintiY = paa.getY();
+					paa.setX(nykSijaintiX);
+					paa.setY(nykSijaintiY-1);
 				}
 				if(headDir.equals("alas")) {
 					Pala paa = keho.get(0);
-					int paaSijainti = paa.getX();
-					paa.setX(paaSijainti+1);
+					int nykSijaintiX = paa.getX();
+					int nykSijaintiY = paa.getY();
+					paa.setX(nykSijaintiX);
+					paa.setY(nykSijaintiY+1);
 				}
 				if(headDir.equals("vasen")) {
 					Pala paa = keho.get(0);
-					int paaSijainti = paa.getY();
-					paa.setY(paaSijainti-1);
+					int nykSijaintiX = paa.getX();
+					int nykSijaintiY = paa.getY();
+					paa.setX(nykSijaintiX-1);
+					paa.setY(nykSijaintiY);
 				}
 				if(headDir.equals("oikea")) {
 					Pala paa = keho.get(0);
-					int paaSijainti = paa.getY();
-					paa.setY(paaSijainti+1);
+					int nykSijaintiX = paa.getX();
+					int nykSijaintiY = paa.getY();
+					paa.setX(nykSijaintiX+1);
+					paa.setY(nykSijaintiY);
 				}
+			
 			}
 	}
 	
