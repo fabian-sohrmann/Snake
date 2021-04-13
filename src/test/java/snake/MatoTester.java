@@ -11,7 +11,7 @@ public class MatoTester {
 	public void growsMatoX() {
 		
 		/**
-		 *  PP = madon p‰‰, ## = kehon palat
+		 *  PP = madon p√§√§, ## = kehon palat
 		 *
 		 *
 		 *	00 01 02 03
@@ -20,8 +20,8 @@ public class MatoTester {
 		 *	30 31 32 33
 		 *
 		 * Luodaan maton kehoa edustava lista, jonka osilla on koordinaatit eli
-		 * et‰isyydet vasemmasta yl‰kulmasta {21,22,12}
-		 * Kasvattamisen j‰lkeen pit‰isi olla {21,22,12,13}. T‰m‰ metodi testaa vain
+		 * et√§isyydet vasemmasta ylÔøΩkulmasta {21,22,12}
+		 * Kasvattamisen jÔøΩlkeen pitÔøΩisi olla {21,22,12,02}. T√§m√§ metodi testaa vain
 		 * X-koordinaatit.
 		
 		*/
@@ -40,7 +40,7 @@ public class MatoTester {
 			Xkoordinaatit[i] = x;
 		}
 		
-		int[] oikeatXKoordinaatit = new int[] {2,2,1,1};
+		int[] oikeatXKoordinaatit = new int[] {2,2,1,0};
 		
 		
 		assertArrayEquals(oikeatXKoordinaatit, Xkoordinaatit);
@@ -50,7 +50,7 @@ public class MatoTester {
 	public void growsMatoY() {
 		
 		/**
-		 *  PP = madon p‰‰, ## = kehon palat
+		 *  PP = madon p√§√§, ## = kehon palat
 		 *
 		 *
 		 *	00 01 02 03
@@ -58,17 +58,18 @@ public class MatoTester {
 		 *	20 ## ## 23
 		 *	30 31 32 33
 		 *
-		 * Luodaan maton kehoa edustava lista, jonka osilla on koordinaatit {12,22,21}
-		 * Kasvattamisen j‰lkeen pit‰isi olla {12,22,21,20}. T‰m‰ metodi testaa vain
+		 * Luodaan maton kehoa edustava lista, jonka osilla on koordinaatit eli
+		 * et√§isyydet vasemmasta yl√§kulmasta {21,22,12}
+		 * Kasvattamisen j√§lkeen pit√§isi olla {21,22,12,02}. T√§m√§ metodi testaa vain
 		 * Y-koordinaatit.
 		
 		*/
 		
 		Mato mato = new Mato();
 		ArrayList<Pala> keho = mato.getKeho();
-		keho.set(0, new Pala(1,2));
+		keho.set(0, new Pala(2,1));
 		keho.add(new Pala(2,2));
-		keho.add(new Pala(2,1));
+		keho.add(new Pala(1,2));
 		mato.setDir(null);
 		mato.grow();
 		
@@ -78,23 +79,23 @@ public class MatoTester {
 			Ykoordinaatit[i] = y;
 		}
 		
-		int[] oikeatYKoordinaatit = new int[] {2, 2, 1, 0};
+		int[] oikeatYKoordinaatit = new int[] {1, 2, 2, 2};
 		
 		
 		assertArrayEquals(oikeatYKoordinaatit, Ykoordinaatit);
 	}
 	
 	/**
-	 *  PP = madon p‰‰, ## = kehon palat
+	 *  PP = madon p√§√§, ## = kehon palat
 	 *
 	 *
 	 *	00 01 02 03
 	 *	10 11 PP 13
-	 *	20 ## ## 23
+	 *	## ## ## 23
 	 *	30 31 32 33
 	 *
-	 * Luodaan maton kehoa edustava lista, jonka osilla on koordinaatit {12,22,21}
-	 * liikuttamisen j‰lkeen (ylos) pit‰isi olla {02,12,22}. T‰m‰ metodi testaa vain
+	 * Luodaan maton kehoa edustava lista, jonka osilla on koordinaatit {21,22,12,02}
+	 * liikuttamisen j√§lkeen (vasemmalle) pit√§isi olla {11,21,22,12}. T√§m√§ metodi testaa vain
 	 * X-koordinaatit.
 	
 	*/
@@ -105,11 +106,11 @@ public class MatoTester {
 		
 		Mato mato = new Mato();
 		ArrayList<Pala> keho = mato.getKeho();
-		keho.set(0, new Pala(1,3));
+		keho.set(0, new Pala(2,1));
+		keho.add(new Pala(2,2));
 		keho.add(new Pala(1,2));
-		keho.add(new Pala(1,1));
-		keho.add(new Pala(2,1));
-		mato.setDir("alas");
+		keho.add(new Pala(0,2));
+		mato.setDir("vasen");
 		mato.move();
 		
 		int[] Xkoordinaatit = new int[4];
@@ -120,22 +121,22 @@ public class MatoTester {
 		}
 		
 		
-		int[] oikeatXKoordinaatit = new int[] {2,1,1,1};
+		int[] oikeatXKoordinaatit = new int[] {1,2,2,1};
 		
 		assertArrayEquals(oikeatXKoordinaatit, Xkoordinaatit);
 	}
 	
 	/**
-	 *  PP = madon p‰‰, ## = kehon palat
+	 *  PP = madon p√§√§, ## = kehon palat
 	 *
 	 *
 	 *	00 01 02 03
-	 *	10 ## ## PP
-	 *	20 ## 22 23
+	 *	10 11 PP 13
+	 *	## ## ## 23
 	 *	30 31 32 33
 	 *
-	 * Luodaan maton kehoa edustava lista, jonka osilla on koordinaatit {12,22,21}
-	 * liikuttamisen j‰lkeen (ylos) pit‰isi olla {02,12,22}. T‰m‰ metodi testaa vain
+	 * Luodaan maton kehoa edustava lista, jonka osilla on koordinaatit {21,22,12,02}
+	 * liikuttamisen j√§lkeen (vasemmalle) pit√§isi olla {11,21,22,12}. T√§m√§ metodi testaa vain
 	 * Y-koordinaatit.
 	
 	*/
@@ -145,11 +146,11 @@ public class MatoTester {
 		
 		Mato mato = new Mato();
 		ArrayList<Pala> keho = mato.getKeho();
-		keho.set(0, new Pala(1,3));
+		keho.set(0, new Pala(2,1));
+		keho.add(new Pala(2,2));
 		keho.add(new Pala(1,2));
-		keho.add(new Pala(1,1));
-		keho.add(new Pala(2,1));
-		mato.setDir("alas");
+		keho.add(new Pala(0,2));
+		mato.setDir("vasen");
 		mato.move();
 		
 		int[] Ykoordinaatit = new int[4];
@@ -158,7 +159,7 @@ public class MatoTester {
 			Ykoordinaatit[i] = y;
 		}
 		
-		int[] oikeatYKoordinaatit = new int[] {3,3,2,1};
+		int[] oikeatYKoordinaatit = new int[] {1,1,2,2};
 		
 		assertArrayEquals(oikeatYKoordinaatit, Ykoordinaatit);
 	}

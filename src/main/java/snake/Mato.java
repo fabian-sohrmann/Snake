@@ -4,6 +4,7 @@ import java.util.Random;
 
 
 	/**
+	 * <h1>Mato</h1>
 	 * Tämä luokka edustaa matoa. Sillä on muuttujat ArrayList&stPala&lt, joka edustaa madon kehoa.
 	 * Listassa on Pala-olioita, jotka tietävät oman sijainnin pelikentällä. Lisäksi String-tyyppinen
 	 * muutuja headDir tietää nykyisen kulkusuunnan.
@@ -39,7 +40,6 @@ public class Mato {
 	}
 	
 	/**
-	 * <h1>Mato</h1>
 	 * Kasvattaa madon lisäämällä Pala-olio madon kehoon (listaan) ja antaa sille liikesuuntaan 
 	 * nähden oikeat koordinaatit. Jos maton pituus on 1, metodi laskee kulkusuunnan ja nykyisen
 	 * sijainnin avulla uudelle palalle oikea paikka. Jos maton pituus >= 2, metodi hakee kaksi
