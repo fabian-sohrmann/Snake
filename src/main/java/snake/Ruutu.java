@@ -2,6 +2,11 @@ package snake;
 
 import javafx.scene.image.Image;
 
+/**
+ * Tämä luokka käytetään peliruudun piirtämiseen. Jokaisella Ruutu-oliolla annetaan konstruktorissa sijainti 
+ * x ja y sekä kuva eli Image-olio.
+ *
+ */
 public class Ruutu {
 	
 	private Image kuva;

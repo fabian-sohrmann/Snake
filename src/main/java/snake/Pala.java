@@ -1,9 +1,8 @@
 package snake;
 
 /**
- * This class creates the body parts for the snake. Each part has its own coordinates.
- * @author fabia
- *
+ * Tästä luokasta muodostetaan maton kehoa edustavia Pala-olioita. Luokalla on muuttujat x ja y,
+ * jotka edustavat palan sijainti.
  */
 public class Pala {
 	

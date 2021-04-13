@@ -2,30 +2,30 @@ package snake;
 import java.util.ArrayList;
 import java.util.Random;
 
+
+	/**
+	 * T√§m√§ luokka edustaa matoa. Sill√§ on muuttujat ArrayList&stPala&lt, joka edustaa madon kehoa.
+	 * Listassa on Pala-olioita, jotka tiet√§v√§t oman sijainnin pelikent√§ll√§. Lis√§ksi String-tyyppinen
+	 * muutuja headDir tiet√§√§ nykyisen kulkusuunnan.
+	 */
 public class Mato {
 	
-	/**
-	 * Snakes body, consists of Pala-objects. 1. object is head of snake.
-	 */
 	private ArrayList<Pala> keho = new ArrayList<Pala>();
 	
-	//vaihtoehdot: ylos, alas, oikea, vasen
+	//Saa vaihtoehdot: ylos, alas, oikea, vasen
 	String headDir;
-	String tailDir;
 	
 	
 	/**
-	 * Konstruktori lis‰‰ Pala-olion ja antaa suunnan madon keholle.
-	 * L‰htˆpaikka on satunnaisesti keskell‰ kentt‰‰ ja suunta on myˆs satunnainen.
+	 * Konstruktori luo uuden madon, lis√§√§ Pala-olion listaan ja antaa suunnan madon keholle.
+	 * L√§ht√∂paikka on satunnaisesti keskell√§ kentt√§√§ ja suunta on my√∂s satunnainen.
 	 * 
 	 */
 	public Mato() {
 		
-		//satunnaisuus l‰htˆ‰ varten
 		Random r = new Random();
 		String[] suunnat = new String[] {"ylos", "alas", "oikea","vasen"};
 		
-		//lis‰t‰‰n p‰‰ ja sen paikka ja suunta
 		int lahtoX = (r.nextInt(2))+4;
 		int lahtoY = (r.nextInt(2))+4;
 		
@@ -39,13 +39,17 @@ public class Mato {
 	}
 	
 	/**
-	 * Kasvattaa madon, lis‰‰ Pala-olion madon kehoon ja antaa sille liikesuuntaan n‰hden oikeat koordinaatit
+	 * <h1>Mato</h1>
+	 * Kasvattaa madon lis√§√§m√§ll√§ Pala-olio madon kehoon (listaan) ja antaa sille liikesuuntaan 
+	 * n√§hden oikeat koordinaatit. Jos maton pituus on 1, metodi laskee kulkusuunnan ja nykyisen
+	 * sijainnin avulla uudelle palalle oikea paikka. Jos maton pituus >= 2, metodi hakee kaksi
+	 * viimeist√§ palaa ja laskee niiden sijaintien mukaan uudelle palalle oikea paikka.
 	 */
 	public void grow() {
 		int x = 0;
 		int y = 0;
 		
-		//jos vain p‰‰
+		//jos madon pituus == 1
 		if(keho.size() == 1) {
 			if(headDir.equals("vasen")) {
 				x = keho.get(0).getX() +1;
@@ -64,8 +68,7 @@ public class Mato {
 				y = keho.get(0).getY()-1;
 			}
 		}else{
-			//jos 2 tai enemm‰n palaa: haetaan 2 viimeisint‰ palaa, verrataan niiden kulkusuunta
-			//ja kasvatetaan h‰nt‰ menosuunnasta poisp‰in
+			//pituus >= 2
 			Pala vikaPala = keho.get(keho.size()-1);
 			Pala vertPala = keho.get(keho.size()-2); 		
 			int x2 = vertPala.getX();
@@ -88,15 +91,9 @@ public class Mato {
 			if(y1>y2) {
 				x = x1;
 				y = y1 + 1;
-			}
-			
-		
-			
-			
+			}	
 		}	
 		
-		//lis‰t‰‰n oikeat koordinaatit uudelle h‰nn‰lle ja lis‰t‰‰n uusi h‰nt‰ listaan
-		//keho.add(keho.size(), new Pala(x, y));
 		keho.add(keho.size(), new Pala(x, y));
 	}
 	
@@ -108,6 +105,13 @@ public class Mato {
 		return headDir;
 	}
 	
+	/**
+	 * Metodi liikuttaa matoa, eli se p√§vitt√§√§ Pala-olioiden koordinaatit oikealla tavalla
+	 * kulkusuuntaan n√§hden. K√§yt√§nn√∂ss√§ tapahtuu siten, ett√§ kaikki koordinaatit siirtyv√§t 
+	 * paloissa yhden askeleen taaksep√§in (2. viimeinen -> viimeinen, ..., 1. -> 2.) P√§√§-pala
+	 * p√§ivitet√§√§n erikseen: lasketaan uusi sijainti maton kulkusuunnan avulla. Jos maton 
+	 * pituus = 1, vain p√§√§ siirtyy.  
+	 */
 	public void move() {
 			
 			if(keho.size() > 1) {
@@ -119,7 +123,7 @@ public class Mato {
 					back.setY(front.getY());
 				}
 				
-				//p‰‰ siirtyy lopuksi
+				//p√§√§ siirtyy lopuksi
 				if(headDir.equals("ylos")) {
 					Pala paa = keho.get(0);
 					int nykSijaintiX = paa.getX();
@@ -149,7 +153,7 @@ public class Mato {
 					paa.setY(nykSijaintiY);
 				}
 			}else{
-				// vain p‰‰ siirtyy TESTATTU JA OK!
+				// vain p√§√§ siirtyy
 				if(headDir.equals("ylos")) {
 					Pala paa = keho.get(0);
 					int nykSijaintiX = paa.getX();
@@ -182,11 +186,14 @@ public class Mato {
 			}
 	}
 	
+	
+	/**
+	 * Metodi tarkistaa, osuuko mato kent√§n reunaan. Kent√§n mitat ovat ennalta m√§√§r√§tyt 10*10.
+	 * Palauttaa true tai false tilanteen mukaan.
+	 */
 	public boolean osuukoReunaan() {
 		
-		//simuloidaan seuraava siirto ja tarkistetaan sen laillisuus
 		boolean osuuReunaan = true;
-		
 		Pala paa = keho.get(0);
 		int paaX = paa.getX();
 		int paaY = paa.getY();
@@ -198,9 +205,13 @@ public class Mato {
 		return osuuReunaan;
 	}
 	
+	
+	/**
+	 * Metodi tarkistaa, osuuko mato omaan h√§nt√§√§n. Se vertaa p√§√§n sijanti kehon muiden osien
+	 * siajintiin ja palauttaa true tai false tilanteen mukaan.
+	 */
 	public boolean osuukoHantaan() {
 		
-		//simuloidaan seuraava siirto ja tarkistetaan sen laillisuus
 		boolean osuuHantaan = false;
 		
 		Pala paa = keho.get(0);
@@ -218,6 +229,9 @@ public class Mato {
 	}
 	
 	
+	/*'
+	 * Metodi tarkistaa osuuko maton p√§√§ ruokaan vertaamalla niiden sijainnit.
+	 */
 	public boolean osuukoRuokaan(Ruoka r) {
 		if((keho.get(0).getX() == r.getX()) && (keho.get(0).getY() == r.getY())){
 			return true;

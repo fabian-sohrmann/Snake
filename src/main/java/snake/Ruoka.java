@@ -3,9 +3,8 @@ package snake;
 import java.util.Random;
 
 /**
- * Luokka luo Ruoka-olioita. Konstruktori luo sille satunnaisen sijainnin. 
- * @author fabia
- *
+ * Luokka edustaa Ruoka-olioita. Sillä on muutujat x ja y, jotka edustavat ruokapalan sijainti.
+ * Konstruktori luo niille satunnaiset arvot. 
  */
 public class Ruoka {
 	private int x;

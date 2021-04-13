@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes","u":"allclasses-index.html"},{"p":"snake","l":"Game"},{"p":"snake","l":"GameLoop"},{"p":"snake","l":"GameLoopTester"},{"p":"snake","l":"Main"},{"p":"snake","l":"Mato"},{"p":"snake","l":"MatoTester"},{"p":"snake","l":"Pala"},{"p":"snake","l":"Ruoka"},{"p":"snake","l":"Ruutu"}];updateSearchResults();

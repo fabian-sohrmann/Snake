@@ -19,17 +19,18 @@ public class MatoTester {
 		 *	20 ## ## 23
 		 *	30 31 32 33
 		 *
-		 * Luodaan maton kehoa edustava lista, jonka osilla on koordinaatit {12,22,21}
-		 * Kasvattamisen jälkeen pitäisi olla {12,22,21,20}. Tämä metodi testaa vain
+		 * Luodaan maton kehoa edustava lista, jonka osilla on koordinaatit eli
+		 * etäisyydet vasemmasta yläkulmasta {21,22,12}
+		 * Kasvattamisen jälkeen pitäisi olla {21,22,12,13}. Tämä metodi testaa vain
 		 * X-koordinaatit.
 		
 		*/
 		
 		Mato mato = new Mato();
 		ArrayList<Pala> keho = mato.getKeho();
-		keho.set(0, new Pala(1,2));
+		keho.set(0, new Pala(2,1));
 		keho.add(new Pala(2,2));
-		keho.add(new Pala(2,1));
+		keho.add(new Pala(1,2));
 		mato.setDir(null);
 		mato.grow();
 		
@@ -39,7 +40,7 @@ public class MatoTester {
 			Xkoordinaatit[i] = x;
 		}
 		
-		int[] oikeatXKoordinaatit = new int[] {1, 2, 2, 2};
+		int[] oikeatXKoordinaatit = new int[] {2,2,1,1};
 		
 		
 		assertArrayEquals(oikeatXKoordinaatit, Xkoordinaatit);
