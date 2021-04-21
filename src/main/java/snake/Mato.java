@@ -2,7 +2,6 @@ package snake;
 import java.util.ArrayList;
 import java.util.Random;
 
-
 	/**
 	 * <h1>Mato</h1>
 	 * Tämä luokka edustaa matoa. Sillä on muuttujat ArrayList&stPala&lt, joka edustaa madon kehoa.
@@ -14,8 +13,7 @@ public class Mato {
 	private ArrayList<Pala> keho = new ArrayList<Pala>();
 	
 	//Saa vaihtoehdot: ylos, alas, oikea, vasen
-	String headDir;
-	
+	private String headDir;
 	
 	/**
 	 * Konstruktori luo uuden madon, lisää Pala-olion listaan ja antaa suunnan madon keholle.
@@ -186,7 +184,6 @@ public class Mato {
 			}
 	}
 	
-	
 	/**
 	 * Metodi tarkistaa, osuuko mato kentän reunaan. Kentän mitat ovat ennalta määrätyt 10*10.
 	 * Palauttaa true tai false tilanteen mukaan.
@@ -204,7 +201,6 @@ public class Mato {
 		
 		return osuuReunaan;
 	}
-	
 	
 	/**
 	 * Metodi tarkistaa, osuuko mato omaan häntään. Se vertaa pään sijanti kehon muiden osien
@@ -228,8 +224,7 @@ public class Mato {
 		return osuuHantaan;
 	}
 	
-	
-	/*'
+	/*
 	 * Metodi tarkistaa osuuko maton pää ruokaan vertaamalla niiden sijainnit.
 	 */
 	public boolean osuukoRuokaan(Ruoka r) {
@@ -239,6 +234,5 @@ public class Mato {
 			return false;
 		}
 	}
-
 
 }

@@ -23,7 +23,6 @@ public class MatoTester {
 		 * etäisyydet vasemmasta yl�kulmasta {21,22,12}
 		 * Kasvattamisen j�lkeen pit�isi olla {21,22,12,02}. Tämä metodi testaa vain
 		 * X-koordinaatit.
-		
 		*/
 		
 		Mato mato = new Mato();
@@ -41,7 +40,6 @@ public class MatoTester {
 		}
 		
 		int[] oikeatXKoordinaatit = new int[] {2,2,1,0};
-		
 		
 		assertArrayEquals(oikeatXKoordinaatit, Xkoordinaatit);
 	}
@@ -62,7 +60,6 @@ public class MatoTester {
 		 * etäisyydet vasemmasta yläkulmasta {21,22,12}
 		 * Kasvattamisen jälkeen pitäisi olla {21,22,12,02}. Tämä metodi testaa vain
 		 * Y-koordinaatit.
-		
 		*/
 		
 		Mato mato = new Mato();
@@ -81,7 +78,6 @@ public class MatoTester {
 		
 		int[] oikeatYKoordinaatit = new int[] {1, 2, 2, 2};
 		
-		
 		assertArrayEquals(oikeatYKoordinaatit, Ykoordinaatit);
 	}
 	
@@ -97,12 +93,10 @@ public class MatoTester {
 	 * Luodaan maton kehoa edustava lista, jonka osilla on koordinaatit {21,22,12,02}
 	 * liikuttamisen jälkeen (vasemmalle) pitäisi olla {11,21,22,12}. Tämä metodi testaa vain
 	 * X-koordinaatit.
-	
 	*/
 	
 	@Test
 	public void moveX() {
-		
 		
 		Mato mato = new Mato();
 		ArrayList<Pala> keho = mato.getKeho();
@@ -120,13 +114,12 @@ public class MatoTester {
 			Xkoordinaatit[i] = x;
 		}
 		
-		
 		int[] oikeatXKoordinaatit = new int[] {1,2,2,1};
 		
 		assertArrayEquals(oikeatXKoordinaatit, Xkoordinaatit);
 	}
 	
-	/**
+	/**51
 	 *  PP = madon pää, ## = kehon palat
 	 *
 	 *
@@ -138,7 +131,6 @@ public class MatoTester {
 	 * Luodaan maton kehoa edustava lista, jonka osilla on koordinaatit {21,22,12,02}
 	 * liikuttamisen jälkeen (vasemmalle) pitäisi olla {11,21,22,12}. Tämä metodi testaa vain
 	 * Y-koordinaatit.
-	
 	*/
 	
 	@Test
@@ -164,4 +156,3 @@ public class MatoTester {
 		assertArrayEquals(oikeatYKoordinaatit, Ykoordinaatit);
 	}
 }
-	

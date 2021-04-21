@@ -3,7 +3,6 @@ package snake;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -96,7 +95,6 @@ public class Game extends Application {
 		stage.setTitle("Snake");
 		stage.setResizable(false);
 		
-		
 		Ruoka ruoka = new Ruoka();
 		
 		GraphicsContext gc = canvas.getGraphicsContext2D();
@@ -109,7 +107,7 @@ public class Game extends Application {
 		
 		gc.drawImage(background, 0, 0);
 		
-		gl = new GameLoop(gc, tausta, osa, syotava, background, ruudukko, mato, ruoka, title, points);
+		gl = new GameLoop(gc, tausta, osa, syotava, ruudukko, mato, ruoka, title, points);
 	
 		//Luodaan tapahtumankasittelijat pelisilmukan aloittamista ja madon ohjaamista varten.
 		EventHandler<ActionEvent> startHandler = new EventHandler<ActionEvent>() {
@@ -123,19 +121,15 @@ public class Game extends Application {
 			public void handle(KeyEvent event) {
 				if(event.getCode() == KeyCode.W && !(mato.getDir().equals("alas"))) {
 					mato.setDir("ylos");
-					System.out.println(mato.getDir());
 				}
 				if(event.getCode() == KeyCode.S && !(mato.getDir().equals("ylos"))) {
 					mato.setDir("alas");
-					System.out.println(mato.getDir());
 				}
 				if(event.getCode() == KeyCode.A && !(mato.getDir().equals("oikea"))) {
 					mato.setDir("vasen");
-					System.out.println(mato.getDir());
 				}
 				if(event.getCode() == KeyCode.D && !(mato.getDir().equals("vasen"))) {
 					mato.setDir("oikea");
-					System.out.println(mato.getDir());
 				}
 				event.consume();
 				
@@ -148,7 +142,5 @@ public class Game extends Application {
 		stage.show();
 		
 	}
-	
-
 	
 }

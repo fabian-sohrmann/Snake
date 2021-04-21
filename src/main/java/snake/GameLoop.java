@@ -1,7 +1,6 @@
 package snake;
 
 import java.util.ArrayList;
-
 import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
@@ -17,20 +16,19 @@ import javafx.scene.image.Image;
  */
 public class GameLoop extends AnimationTimer{
 	
-	GraphicsContext gc;
-	Image tausta;
-	Image osa;
-	Image syotava;
-	ArrayList<Ruutu> ruudukko;
-	Mato mato;
-	Ruoka ruoka;
-	Image background;
-	Label title;
-	Label points;
-	int pisteet = 0;
-	long lastUpdateTime = 0;
+	private GraphicsContext gc;
+	private Image tausta;
+	private Image osa;
+	private Image syotava;
+	private ArrayList<Ruutu> ruudukko;
+	private Mato mato;
+	private Ruoka ruoka;
+	private Label title;
+	private Label points;
+	private int pisteet = 0;
+	private long lastUpdateTime = 0;
 	
-	GameLoop(GraphicsContext gc, Image tausta, Image osa, Image syotava, Image background, 
+	GameLoop(GraphicsContext gc, Image tausta, Image osa, Image syotava, 
 			ArrayList<Ruutu> ruudukko, Mato mato, Ruoka ruoka, Label title, Label points){
 		this.gc = gc; 
 		this.tausta = tausta;
@@ -39,11 +37,9 @@ public class GameLoop extends AnimationTimer{
 		this.ruudukko = ruudukko;
 		this.mato = mato;
 		this.ruoka = ruoka;
-		this.background = background;
 		this.title = title;
 		this.points = points;
 	}
-	
 	
 	/**
 	 * Korvaa AnimationTimerin handle()-metodi.Metodi ajetaan jokaisen kehyksen yhteydessä. Tämän
@@ -60,27 +56,21 @@ public class GameLoop extends AnimationTimer{
 		
 		//1 000 000 000 nanoseconds = 1 seconds
 		if((time/1000000000 - lastUpdateTime/1000000000)>=1) {
-			
-			
+				
 			piirraRuudukko(ruudukko);
 			mato.move();
 			//tarkistetaan onko madon seuraava liike laillinen
 			if(mato.osuukoReunaan() || mato.osuukoHantaan()){
-				System.out.println("Peli ohi!");
-				
-				
+						
 				if(mato.getKeho().size()==100) {
-					System.out.println("Voitit!");
 					this.stop();
 					title.setText("You won the game! Congratulations! \n\n");
 				}else {
-					System.out.println("H�visit!");
 					this.stop();
 					title.setText("You lost the game!\n\n");
 					
 				}
 			}else {
-				System.out.println("Pelijatkuu");
 				if(mato.osuukoRuokaan(ruoka)) {
 					mato.grow();
 					pisteet++;
@@ -91,8 +81,7 @@ public class GameLoop extends AnimationTimer{
 			
 			lastUpdateTime = time;
 		}
-		
-		
+			
 	}
 	
 	/**
@@ -135,6 +124,5 @@ public class GameLoop extends AnimationTimer{
 			} 		
 		}
 	}
-
 	
 }
